@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+
+import os
+
+cmd = 'tshark -Y http -r ~/finalproject/network.pcap'
+
+
+print("tshark autoparsed log")
+print("---------------------")
+os.system(cmd)
