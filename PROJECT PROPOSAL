@@ -1,8 +1,11 @@
 Project Overview
 -----------------
+- Create a python script that will automatically parse through pcap and log files using tshark and bash.
+- Example files: images, smtp, binary files, and indicators of compromise.
 
 Proof of Concept
 -----------------
+
 
 Minimum Viable Product
 -----------------
