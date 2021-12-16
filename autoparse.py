@@ -19,7 +19,7 @@ cmd5 = 'tshark -r ' + str(file_name) + ' -Y http | sort -n'
 #print a space to separate headers
 
 print("---------------------")
-print("SOURCE IPs")
+print("SOURCE IPs           ")
 print("---------------------")
 print("Count | Ips          ")
 print("---------------------")
