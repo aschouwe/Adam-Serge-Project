@@ -1,10 +1,26 @@
 #!/usr/bin/env python3
 
+import sys
 import os
 
-cmd = 'tshark -Y http -r ~/finalproject/network.pcap'
+#variable for any pcap file 
+file_name = sys.argv[1]
 
+#filter for http traffic    
+cmd = 'tshark -Y http -r' + str(file_name)
+#filter for traffic on port 22
+cmd2 ='tshark -Y tcp.port==22 -r' + str(file_name)
 
-print("tshark autoparsed log")
+#print Header
+print("tshark HTTP log")
+#print a line
 print("---------------------")
+#call tshark shell command(1)
 os.system(cmd)
+
+#print a space to separate headers
+print("                     ")
+print("tshark TCP port 22 log")
+print("---------------------")
+#call tshark shell command(2)
+os.system(cmd2)
