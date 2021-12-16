@@ -5,25 +5,32 @@ Project Overview
 
 Proof of Concept
 -----------------
--Automatic log parsing saves time
--Helping the untrained identify compromised systems\
--Python works easily with tshark with existing python modules
--will verify by testing various pcaps
+-Automatic log parsing will saves time, with important tshark filters already programmed in python
+-Helping the untrained identify maliciouse behavior
+-Python works easily with tshark using the existing python module 'os'
+-project sucess will be verified by testing with various pcaps
   -avoiding false positives
   -alerting when expected
 
+TIME LINE
+  Dec 18 - finalize choices for test pcaps
+         - finalize choices for tshark filters to use
+  Dec 19 - Start code first draft
+  Dec 20 - continue code first draft
+   
 Minimum Viable Product
 -----------------
-Dec 22
--script will work with all pcaps to automatically export various objects present (HTTP, SMTP, IMF, TFTP), and detect evidence of possible compromise.
--Program most important filters for suspicious activity 
+  Dec 22
+-script will work with all pcaps to automatically export various objects present (HTTP, SMTP, IMF, FTP), and detect evidence of possible compromise.
+-Will use important filters to search for suspicious activity 
 
 Complete Project
 -----------------
-Jan 1
--add additional filters
-
+  Dec 24 code final draft
+  Dec 27-30 Record presentation
+  
 Stretch Goals
 -----------------
+-add addtional filters
 -included other types of log files
 -analyze file type before parsing
