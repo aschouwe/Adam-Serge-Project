@@ -6,21 +6,21 @@ import os
 #variable for any pcap file 
 file_name = sys.argv[1]
 
-#filter for http traffic    
-cmd = 'tshark -r' + str(file_name) + '-Y http'
-#filter for traffic on port 22
-cmd2 ='tshark -r' + str(file_name) + '-Y tcp -T fields -e tcp.dstport==22'
+#parse all src ips sort and count them
+cmd = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.src | sort | uniq -c'
+#parse all dst ips sort and count them
+cmd2 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.dst | sort | uniq -c'
 
-#print Header
-print("tshark HTTP log")
-#print a line
+#print a space to separate headers
+print("                     ")
+print("tshark src ips by count")
 print("---------------------")
-#call tshark command(1)
+#call tshark shell command(2)
 os.system(cmd)
 
 #print a space to separate headers
 print("                     ")
-print("tshark TCP port 22 log")
+print("tshark dst ips by count")
 print("---------------------")
 #call tshark shell command(2)
 os.system(cmd2)
