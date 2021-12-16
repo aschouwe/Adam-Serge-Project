@@ -11,6 +11,13 @@ Proof of Concept
 -project sucess will be verified by testing with various pcaps
   -avoiding false positives
   -alerting when expected
+  
+Traffic to filter
+  -known malicious ports
+  -ftp.data
+  -http.data
+  -tcp.flags
+  -http.authorization
 
 TIME LINE
   Dec 18 - finalize choices for test pcaps
@@ -31,6 +38,7 @@ Complete Project
   
 Stretch Goals
 -----------------
+-extractin images
 -add addtional filters
 -included other types of log files
 -analyze file type before parsing
