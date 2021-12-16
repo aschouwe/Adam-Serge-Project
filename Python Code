@@ -7,15 +7,15 @@ import os
 file_name = sys.argv[1]
 
 #filter for http traffic    
-cmd = 'tshark -Y http -r' + str(file_name)
+cmd = 'tshark -r' + str(file_name) + '-Y http'
 #filter for traffic on port 22
-cmd2 ='tshark -Y tcp.port==22 -r' + str(file_name)
+cmd2 ='tshark -r' + str(file_name) + '-Y tcp -T fields -e tcp.dstport==22'
 
 #print Header
 print("tshark HTTP log")
 #print a line
 print("---------------------")
-#call tshark shell command(1)
+#call tshark command(1)
 os.system(cmd)
 
 #print a space to separate headers
