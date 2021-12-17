@@ -3,7 +3,7 @@
 import sys
 import os
 import datetime
-#variable for any pcap file 
+#variable for any pcap file from the command line
 file_name = sys.argv[1]
 
 #create a directory called "export" 
