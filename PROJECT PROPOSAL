@@ -5,39 +5,33 @@ Project Overview
 
 Proof of Concept
 -----------------
--Automatic log parsing will saves time, with important tshark filters already programmed in python
--Helping the untrained identify maliciouse behavior
--Python works easily with tshark using the existing python module 'os'
--project sucess will be verified by testing with various pcaps
-  -avoiding false positives
-  -alerting when expected
-  
-Traffic to filter
-  -known malicious ports
-  -ftp.data
-  -http.data
-  -tcp.flags
-  -http.authorization
+-Automatic log parsing: 
+  . src and dst IPs
+  . src and dst Ports
+  . HTTP traffic
+  . export HTTP objects
+  . decode UNIX timestamp
 
 TIME LINE
+  Dec 15-17 work on POC (python coding)
   Dec 18 - finalize choices for test pcaps
          - finalize choices for tshark filters to use
-  Dec 19 - Start code first draft
-  Dec 20 - continue code first draft
+  
+  Dec 20 - Finalize product for MVP 
    
 Minimum Viable Product
 -----------------
   Dec 22
--script will work with all pcaps to automatically export various objects present (HTTP, SMTP, IMF, FTP), and detect evidence of possible compromise.
--Will use important filters to search for suspicious activity 
+-script will work with all pcaps 
 
 Complete Project
 -----------------
-  Dec 24 code final draft
+  Dec 24 Finalize product
   Dec 27-30 Record presentation
   
 Stretch Goals
 -----------------
+-ips style detection (using python to analyze log files)
 -extractin images
 -add addtional filters
 -included other types of log files
