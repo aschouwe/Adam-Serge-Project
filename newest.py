@@ -6,8 +6,9 @@ from datetime import datetime
 #variable for any pcap file from the command line
 file_name = sys.argv[1]
 
+#variable for current time
 now = datetime.now()
-
+#formating for current time
 current = now.strftime("%H:%M:%S")
 
 
@@ -44,7 +45,7 @@ cmd3 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.srcport | sort 
 cmd4 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.dstport | sort | uniq -c | sort -n'
 # parse all http traffic 
 cmd5 = 'tshark -r ' + str(file_name) + ' -Y http | sort -n'
-#export all http objects with stdout redirected to dev null
+#export all http objects to current exports directory and redirected stdout to dev null
 cmd6 = 'tshark -r ' + str(file_name) + ' --export-object http,/home/kali/finalproject/exports' + current + '> /dev/null'
 
 #header formating
