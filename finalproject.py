@@ -6,23 +6,25 @@ from datetime import datetime
 #variable for any pcap file from the command line
 file_name = sys.argv[1]
 
-about = "Welcome to PyBash Auto-parsing Tool!"
+about = "WelCoMe To PyBaSh AuTo-PaRsInG To0l!"
 print(about)
 #user input variable
-key = input("***Press ENTER to Contiue***")
+key = input("***PRESS ENTER KEY TO CONTINUE!!!!!***")
 print(key)
 
 #variable for current time
 now = datetime.now()
 #formating for current time
 current = now.strftime("%H:%M:%S")
+print(("CURRENT TIME = ") + str(current))
+
 
 
 #create a directory called "exports" 
 cmd_dir = 'mkdir exports' + current
 print("                                ")
 print("********************************")
-print('New "exports" Directory Created!')
+print('New "exports" Directory Created')
 print("********************************")
 #call create directory command
 os.system(cmd_dir)
@@ -428,7 +430,7 @@ os.system(cnt_pcap)
 #count number of line in portscan filter
 print("                           ")
 print("---------------------------")
-print("Port Scanning PACKETS FOUND")
+print("Port Scan PACKETS FOUND    ")
 print("---------------------------")
 cmd_portscncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 or tcp.flags.reset == 1" | wc -l'
 os.system(cmd_portscncnt)
@@ -481,7 +483,7 @@ os.system(cnt_pcap)
 #count number of line in portscan filter
 print("                           ")
 print("---------------------------")
-print("XMAS Scan PACKETS FOUND")
+print("XMAS Scan PACKETS FOUND    ")
 print("---------------------------")
 cmd_xmasscncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags==0X029" | wc -l'
 os.system(cmd_xmasscncnt)
