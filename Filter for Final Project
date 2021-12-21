@@ -1,0 +1,29 @@
+
+Port scanning:
+contentious multiple SYN or RST packet in captures
+tcp.flags.syn == 1 or tcp.flags.reset == 1
+
+Brute Force Attack on FTP:
+FTP response code for login failure
+“ftp.response.code==530”
+
+ICMP ping sweep:
+icmp.type==8 or icmp.type==0
+
+TCP ping sweep:
+tcp.dstport==7
+
+UDP ping sweep:
+udp.dstport==7
+
+Null scan:
+tcp.flags==0x000
+
+Xmas scans:
+tcp.flags==0X029
+
+UDP scan:
+icmp.type==3 and icmp.code==3
+
+SYN flood:
+tcp.flags.syn == 1 and tcp.flags.ack == 0
