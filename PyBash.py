@@ -37,9 +37,9 @@ cmd_dir2 = 'mkdir images' + current + name
 cmd_dir3 = 'mkdir search_filters' + current + name
 
 print("                                                 ")
-print("*************************************************")
+print("***************************************************")
 print('New Directories Created; With Current time and word')
-print("*************************************************")
+print("***************************************************")
 
 #call create directory command
 os.system(cmd_dir)
