@@ -36,9 +36,9 @@ cmd_dir2 = 'mkdir images' + current + name
 #create a directory search filters
 cmd_dir3 = 'mkdir search_filters' + current + name
 
-print("                                           ")
+print("                                                 ")
 print("*************************************************")
-print('New PyBash DIRECTORIES CREATED with current time')
+print('New Directories Created; With Current time and word')
 print("*************************************************")
 
 #call create directory command
