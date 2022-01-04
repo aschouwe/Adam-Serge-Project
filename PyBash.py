@@ -23,7 +23,7 @@ print(("CURRENT TIME = ") + str(current))
 #add custom name to all files
 name = ""
 
-key = input("please enter ANY word with NO spaces: ")
+key = input("please enter ANY label with NO spaces: ")
 
 name += key
 
@@ -37,9 +37,9 @@ cmd_dir2 = 'mkdir images' + current + name
 cmd_dir3 = 'mkdir search_filters' + current + name
 
 print("                                                 ")
-print("***************************************************")
-print('New Directories Created; With Current time and word')
-print("***************************************************")
+print("****************************************************")
+print('New Directories Created; With Current time and label')
+print("****************************************************")
 
 #call create directory command
 os.system(cmd_dir)
@@ -60,59 +60,59 @@ cut_cmd2 = 'cut -d "." -f 1 timestamp.log | sort > cutstamp.log'
 #call cut command
 os.system(cut_cmd2)
 
-print("---------------------------------")
-print("EVENT TIMELINE   ")
-print("---------------------------------")
+# print("---------------------------------")
+# print("Packet TIMELINE   ")
+# print("---------------------------------")
 
-#function to convert unix timestamp 
-def timeconvert(file):
-    #emtpy timestamp list
-    ts = []
-    #empty trash list (for unwanted chars)
-    trash = []
-    #iterate through cutstamp.log file and remove unwanted chars
-    for line in file:
-        line = line.rstrip()
-        #if the line is a number, then add to the timestamp list
-        if line.isnumeric():
-            ts.append(line)
-        #if line is not a number, then add to the trash list
-        else:
-            trash.append(line)
-    #iterate through the timestamp list
-    for num in ts:
-        #decode every unix timestamp into human readable format
-        dt = datetime.fromtimestamp(int(num))
-        #print decoded timestamp in stdout
-        print(dt)
+# #function to convert unix timestamp 
+# def timeconvert(file):
+#     #emtpy timestamp list
+#     ts = []
+#     #empty trash list (for unwanted chars)
+#     trash = []
+#     #iterate through cutstamp.log file and remove unwanted chars
+#     for line in file:
+#         line = line.rstrip()
+#         #if the line is a number, then add to the timestamp list
+#         if line.isnumeric():
+#             ts.append(line)
+#         #if line is not a number, then add to the trash list
+#         else:
+#             trash.append(line)
+#     #iterate through the timestamp list
+#     for num in ts:
+#         #decode every unix timestamp into human readable format
+#         dt = datetime.fromtimestamp(int(num))
+#         #print decoded timestamp in stdout
+#         print(dt)
 
    
-    #remove timestamp files from system
-    cmd_rm = 'rm -r cutstamp.log timestamp.log pcap.log'
-    os.system(cmd_rm)
+    # #remove timestamp files from system
+    # cmd_rm = 'rm -r cutstamp.log timestamp.log pcap.log'
+    # os.system(cmd_rm)
 
         
         
-#main function to open a file
-def main():
-    #open the cutstamp.log file as file_name
-    file_name = ('/home/kali/finalproject/cutstamp.log')
-    with open(file_name) as file_name:
-        #call function
-        timeconvert(file_name)
+# #main function to open a file
+# def main():
+#     #open the cutstamp.log file as file_name
+#     file_name = ('/home/kali/finalproject/cutstamp.log')
+#     with open(file_name) as file_name:
+#         #call function
+#         timeconvert(file_name)
 
-#dunder check
-if __name__ == "__main__":
- main()
+# #dunder check
+# if __name__ == "__main__":
+#  main()
 
 #parse all src ips sort and count them
-cmd = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.src | sort | uniq -c | sort -n'
+cmd = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.src | sort | uniq -c | sort -n | tail'
 #parse all dst ips sort and count them
-cmd2 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.dst | sort | uniq -c | sort -n'
+cmd2 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.dst | sort | uniq -c | sort -n | tail'
 #parse all src ports and count them
-cmd3 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.srcport | sort | uniq -c | sort -n'
+cmd3 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.srcport | sort | uniq -c | sort -n | tail'
 #parse all dst ports and count them
-cmd4 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.dstport | sort | uniq -c | sort -n'
+cmd4 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.dstport | sort | uniq -c | sort -n | tail'
 
 cmd6 = 'tshark -r ' + str(file_name) + ' --export-object http,/home/kali/finalproject/exports' + current + name + '> /dev/null'
 #export all smb objects
@@ -191,14 +191,16 @@ def percent(file):
     x = nums[0]
     y = nums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
     print("Percentage of total packets")
     print("---------------------------------")
+    
 
     print(str(rounder) + str(percent)) 
+    
    
 
 #main function to open a file
@@ -243,7 +245,7 @@ def percent(file):
     x = nums[0]
     y = nums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
@@ -295,7 +297,7 @@ def percent(file):
     x = nums[0]
     y = nums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
@@ -328,7 +330,7 @@ cmd_cnt = 'tshark -r ' + str(file_name) + ' | wc -l > syn.count' + current + nam
 os.system(cmd_cnt)
 #count number of line in syn flood filter
 print("---------------------------------")
-print("SYN Scan PACKETS FOUND     ")
+print("SYN Flood PACKETS FOUND     ")
 print("---------------------------------")
 cmd_syncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 and tcp.flags.ack == 0" | wc -l'
 os.system(cmd_syncnt)
@@ -347,7 +349,7 @@ def percent(file):
     x = nums[0]
     y = nums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
@@ -398,7 +400,7 @@ def percent(file):
     x = icmpnums[0]
     y = icmpnums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
@@ -450,7 +452,7 @@ def percent(file):
     x = nums[0]
     y = nums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
@@ -502,7 +504,7 @@ def percent(file):
     x = nums[0]
     y = nums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
@@ -554,7 +556,7 @@ def percent(file):
     x = nums[0]
     y = nums[1]
 
-    math = (int(y) / int(x)) * 100 * 10
+    math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
     print("---------------------------------")
@@ -580,14 +582,66 @@ if __name__ == "__main__":
 cmd_rm = 'rm -r xmasscan.count*'
 os.system(cmd_rm)
 
+#ftp filter
+cmd_ftp = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530"> FTPscanning.log' + current + name
+os.system(cmd_ftp)
+#count number of packets in the pcap
+cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > ftp.count' + current + name
+os.system(cnt_pcap)
+#count number of line in portscan filter
+print("---------------------------------")
+print("FTP Brute Force PACKETS FOUND    ")
+print("---------------------------------")
+cmd_ftpcnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 or tcp.flags.reset == 1" | wc -l'
+os.system(cmd_ftpcnt)
+cmd_ftpcnts = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 or tcp.flags.reset == 1" | wc -l >> ftp.count' + current + name
+os.system(cmd_ftpcnts)
+
+def percent(file):
+
+    nums = []
+    for line in file:
+        line = line.rstrip()
+        if line.isnumeric():
+            nums.append(line)
+    
+  
+    x = nums[0]
+    y = nums[1]
+
+    math = (int(y) / int(x)) * 100
+    rounder = round(math,2)
+    percent = "%"
+    print("---------------------------------")
+    print("Percentage of total packets")
+    print("---------------------------------")
+
+    print(str(rounder) + str(percent)) 
+   
+
+#main function to open a file
+def main():
+    #open the cutstamp.log file as file_name
+    file_name = ('/home/kali/finalproject/ftp.count' + current + name)
+    with open(file_name) as file_name:
+        #call function
+        percent(file_name)
+
+#dunder check
+if __name__ == "__main__":
+ main()
+
+cmd_rm = 'rm -r ftp.count*'
+os.system(cmd_rm)
+
 #move search filter results to filters directory
-cmd_mv_filters = 'mv HTTP* ARP* ICMP* PORT* SSH* SYN* UDP* XMAS* -t ~/finalproject/search_filters' + current + name
+cmd_mv_filters = 'mv HTTP* ARP* ICMP* PORT* SSH* SYN* UDP* XMAS* FTP* -t ~/finalproject/search_filters' + current + name
 os.system(cmd_mv_filters)
 #remove all empty files from search filter directory 
 rm_empty = 'find . -type f -empty -print -delete > /dev/null'
 os.system(rm_empty)
 
-
+print("                                                                ")
 print("****************************************************************")
 print("ANY/ALL SEARCH FILTERS SENT TO CURRENT SEARCH FILTERS DIRECTORY")
 print("****************************************************************")
