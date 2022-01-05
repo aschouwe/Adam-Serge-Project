@@ -35,6 +35,10 @@ cmd_dir = 'mkdir exports' + current + name
 cmd_dir2 = 'mkdir images' + current + name
 #create a directory search filters
 cmd_dir3 = 'mkdir search_filters' + current + name
+#create ip src and dest info directory
+cmd_dir4 = 'mkdir ip_sources_and_destinations' + current + name
+#create ports info
+cmd_dir5 = 'mkdir port_sources_and_destinations' + current + name
 
 print("                                                 ")
 print("****************************************************")
@@ -45,20 +49,24 @@ print("****************************************************")
 os.system(cmd_dir)
 os.system(cmd_dir2)
 os.system(cmd_dir3)
+os.system(cmd_dir4)
+os.system(cmd_dir5)
 
 #read pcap with tshark and save to file
 cmd_file = 'tshark -r ' + str(file_name) + ' > /home/kali/finalproject/pcap.log'
 
 os.system(cmd_file)
 
-#cut timestamp out of pcap log file
-cut_cmd = 'cut -d " " -f 2 /home/kali/finalproject/pcap.log > timestamp.log'
-#call cut command
-os.system(cut_cmd)
-#cut timestamp into first part only, at the (.)
-cut_cmd2 = 'cut -d "." -f 1 timestamp.log | sort > cutstamp.log'
-#call cut command
-os.system(cut_cmd2)
+#decode timestamp
+
+# #cut timestamp out of pcap log file
+# cut_cmd = 'cut -d " " -f 2 /home/kali/finalproject/pcap.log > timestamp.log'
+# #call cut command
+# os.system(cut_cmd)
+# #cut timestamp into first part only, at the (.)
+# cut_cmd2 = 'cut -d "." -f 1 timestamp.log | sort > cutstamp.log'
+# #call cut command
+# os.system(cut_cmd2)
 
 # print("---------------------------------")
 # print("Packet TIMELINE   ")
@@ -87,13 +95,14 @@ os.system(cut_cmd2)
 #         print(dt)
 
    
-    # #remove timestamp files from system
+    #remove timestamp files from system
     # cmd_rm = 'rm -r cutstamp.log timestamp.log pcap.log'
     # os.system(cmd_rm)
 
+
         
         
-# #main function to open a file
+#main function to open a file
 # def main():
 #     #open the cutstamp.log file as file_name
 #     file_name = ('/home/kali/finalproject/cutstamp.log')
@@ -107,19 +116,39 @@ os.system(cut_cmd2)
 
 #parse all src ips sort and count them
 cmd = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.src | sort | uniq -c | sort -n | tail'
-#parse all dst ips sort and count them
+#save src ips to file
+cmd_save1 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.src | sort | uniq -c | sort -n >> ~/finalproject/ip_sources' 
+os.system(cmd_save1)
+#parse all dst ips sort and count themip_sources_and_destinations
 cmd2 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.dst | sort | uniq -c | sort -n | tail'
+#save dst ips to file
+cmd_save2 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e ip.dst | sort | uniq -c | sort -n >> ~/finalproject/ip_destinations' 
+os.system(cmd_save2)
 #parse all src ports and count them
 cmd3 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.srcport | sort | uniq -c | sort -n | tail'
+#save src ports to file
+cmd_save3 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.srcport | sort | uniq -c | sort -n >> ~/finalproject/port_sources' 
+os.system(cmd_save3)
 #parse all dst ports and count them
 cmd4 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.dstport | sort | uniq -c | sort -n | tail'
-
+#save dst ports to file
+cmd_save4 = 'tshark -r ' + str(file_name) + ' -Y tcp -T fields -e tcp.dstport | sort | uniq -c | sort -n >> ~/finalproject/port_destinations' 
+os.system(cmd_save4)
+#export all http objects
 cmd6 = 'tshark -r ' + str(file_name) + ' --export-object http,/home/kali/finalproject/exports' + current + name + '> /dev/null'
 #export all smb objects
 cmd7 = 'tshark -r ' + str(file_name) + ' --export-object smb,/home/kali/finalproject/exports' + current + name + '> /dev/null'
 #export imf objects
 cmd8 = 'tshark -r ' + str(file_name) + ' --export-object imf,/home/kali/finalproject/exports' + current + name + '> /dev/null'
-
+#move ip src and dst and move port src and dst to directory
+mv_ipsources = 'mv ip_sources -t ~/finalproject/ip_sources_and_destinations' + current + name
+os.system(mv_ipsources)
+mv_ipdsts = 'mv ip_destinations -t ~/finalproject/ip_sources_and_destinations' + current + name
+os.system(mv_ipdsts)
+mv_portsrc = 'mv port_sources -t ~/finalproject/port_sources_and_destinations' + current + name
+os.system(mv_portsrc)
+mv_portdst = 'mv port_destinations -t ~/finalproject/port_sources_and_destinations' + current + name
+os.system(mv_portdst)
 
 #header formating
 print("---------------------------------")
@@ -583,18 +612,18 @@ cmd_rm = 'rm -r xmasscan.count*'
 os.system(cmd_rm)
 
 #ftp filter
-cmd_ftp = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530"> FTPscanning.log' + current + name
+cmd_ftp = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530" > FTPscanning.log' + current + name
 os.system(cmd_ftp)
 #count number of packets in the pcap
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > ftp.count' + current + name
 os.system(cnt_pcap)
-#count number of line in portscan filter
+#count number of line in ftp filter
 print("---------------------------------")
 print("FTP Brute Force PACKETS FOUND    ")
 print("---------------------------------")
-cmd_ftpcnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 or tcp.flags.reset == 1" | wc -l'
+cmd_ftpcnt = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530" | wc -l'
 os.system(cmd_ftpcnt)
-cmd_ftpcnts = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 or tcp.flags.reset == 1" | wc -l >> ftp.count' + current + name
+cmd_ftpcnts = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530" | wc -l >> ftp.count' + current + name
 os.system(cmd_ftpcnts)
 
 def percent(file):
@@ -676,3 +705,6 @@ os.chdir(path2)
 rm_empty2 = 'find . -type d -empty -print -delete > /dev/null'
 #call os command
 os.system(rm_empty2)
+#remove pcap file
+rm_pcap = 'rm -r pcap.log'
+os.system(rm_pcap)
