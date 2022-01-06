@@ -719,14 +719,15 @@ path2 = '/home/kali/finalproject/'
 #call os command
 os.chdir(path2)
 
+#remove timestamp.txt if it is only 1 byte
+rm_emptystamp = 'find . -type f -size 1c -print -delete > /dev/null 2>&1'
+os.system(rm_emptystamp)
+
 #move timestamp file to timstamp folder
-cmd_mv_timstamp = 'mv timestamp.txt -t /home/kali/finalproject/timestamp_decoded' + current + name
+cmd_mv_timstamp = 'mv timestamp.txt -t /home/kali/finalproject/timestamp_decoded' + current + name + '> /dev/null 2>&1'
 os.system(cmd_mv_timstamp)
 
 #remove all empty directories from finalproject directory 
 rm_empty2 = 'find . -type d -empty -print -delete > /dev/null'
 #call os command
 os.system(rm_empty2)
-#remove pcap file
-# rm_pcap = 'rm -r pcap.log'
-# os.system(rm_pcap)
