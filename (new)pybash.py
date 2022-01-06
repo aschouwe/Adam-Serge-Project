@@ -76,9 +76,9 @@ cut_cmd2 = 'cut -d "." -f 1 timestamp.log | sort > cutstamp.log'
 os.system(cut_cmd2)
 
 #decode timestamps and save to file
-print("---------------------------------")
-print("Packet TIMELINE decoded...added to timestamp.txt")
-print("---------------------------------")
+print("-----------------------------------------")
+print("Packet TIMELINE decoded to file")
+print("-----------------------------------------")
 
 #function to convert unix timestamp 
 def timeconvert(file):
@@ -169,38 +169,38 @@ mv_portdst = 'mv port_destinations -t ~/finalproject/port_sources_and_destinatio
 os.system(mv_portdst)
 
 #header formating
-print("---------------------------------")
-print("SOURCE IP addresses by total")
-print("---------------------------------")
+print("-----------------------------------------")
+print("TOP SOURCE IP addresses by total ")
+print("-----------------------------------------")
 print("total | addresses        ")
-print("---------------------------------")
+print("-----------------------------------------")
 #call tshark shell command()
 os.system(cmd)
 
 #hearder formating
-print("---------------------------------")
-print("DESTINATION IP addresses by total")
-print("---------------------------------")
+print("-----------------------------------------")
+print("TOP DESTINATION IP addresses by total")
+print("-----------------------------------------")
 print("total | addresses          ")
-print("---------------------------------")
+print("-----------------------------------------")
 #call tshark shell command(2)
 os.system(cmd2)
 
 #header formating
-print("---------------------------------")
-print("SOURCE PORT numbers by total")
-print("---------------------------------")
+print("-----------------------------------------")
+print("TOP SOURCE PORT numbers by total")
+print("-----------------------------------------")
 print("total | port numbers         ")
-print("---------------------------------")
+print("-----------------------------------------")
 #call tshark shell command(3)
 os.system(cmd3)
 
 #header formating
-print("---------------------------------")
-print("DESTINATION PORT numbers by total")
-print("---------------------------------")
+print("-----------------------------------------")
+print("TOP DESTINATION PORT numbers by total")
+print("-----------------------------------------")
 print("total | port numbers       ")
-print("---------------------------------")
+print("-----------------------------------------")
 #call tshark shell command(4)
 os.system(cmd4)
 
@@ -218,9 +218,9 @@ os.system(cmd_http)
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > http.count' + current + name
 os.system(cnt_pcap)
 #count number of line in portscan filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("HTTP Traffic PACKETS FOUND ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_http_cnt = 'tshark -r ' + str(file_name) + ' -Y "http" | wc -l'
 os.system(cmd_http_cnt)
 cmd_httpcnt = 'tshark -r ' + str(file_name) + ' -Y http | wc -l >> http.count' + current + name
@@ -241,9 +241,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
     
 
     print(str(rounder) + str(percent)) 
@@ -272,9 +272,9 @@ os.system(cmd_arpscn)
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > arpscan.count' + current + name
 os.system(cnt_pcap)
 #count number of line in portscan filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("ARP Scan PACKETS FOUND     ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_arpscncnt = 'tshark -r ' + str(file_name) + ' -Y "arp.dst.hw_mac==00:00:00:00:00:00" | wc -l'
 os.system(cmd_arpscncnt)
 cmd_arpcnt = 'tshark -r ' + str(file_name) + ' -Y "arp.dst.hw_mac==00:00:00:00:00:00" | wc -l >> arpscan.count' + current + name
@@ -295,9 +295,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
    
@@ -324,9 +324,9 @@ os.system(cmd_sshtraff)
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > ssh.count' + current + name
 os.system(cnt_pcap)
 #count number of line in ssh filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("SSH Traffic PACKETS FOUND  ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_sshscncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.dstport==22 and frame contains "SSH"" | wc -l'
 os.system(cmd_sshscncnt)
 cmd_sshcnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.dstport==22 and frame contains "SSH"" | wc -l >> ssh.count' + current + name
@@ -347,9 +347,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
    
@@ -376,9 +376,9 @@ os.system(cmd_syn)
 cmd_cnt = 'tshark -r ' + str(file_name) + ' | wc -l > syn.count' + current + name
 os.system(cmd_cnt)
 #count number of line in syn flood filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("SYN Flood PACKETS FOUND     ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_syncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 and tcp.flags.ack == 0" | wc -l'
 os.system(cmd_syncnt)
 cmd_syncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 and tcp.flags.ack == 0" | wc -l >> syn.count' + current + name
@@ -399,9 +399,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
    
@@ -428,9 +428,9 @@ os.system(cmd_icmp)
 cnt_icmp = 'tshark -r ' + str(file_name) + ' | wc -l > icmp.count' + current + name
 os.system(cnt_icmp)
 
-print("---------------------------------")
+print("-----------------------------------------")
 print("ICMP Ping Sweep PACKETS FOUND")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_icmpcnt = 'tshark -r ' + str(file_name) + ' -Y "icmp.type==8 or icmp.type==0" | wc -l'
 os.system(cmd_icmpcnt)
 cmd_icmpcnt = 'tshark -r ' + str(file_name) + ' -Y "icmp.type==8 or icmp.type==0" | wc -l >> icmp.count' + current + name
@@ -450,9 +450,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
    
@@ -479,9 +479,9 @@ os.system(cmd_udpscn)
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > udpscan.count' + current + name
 os.system(cnt_pcap)
 #count number of line in portscan filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("UDP Scan PACKETS FOUND     ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_udpscncnt = 'tshark -r ' + str(file_name) + ' -Y "icmp.type==3 and icmp.code==3" | wc -l'
 os.system(cmd_udpscncnt)
 cmd_udpcnt = 'tshark -r ' + str(file_name) + ' -Y "icmp.type==3 and icmp.code==3" | wc -l >> udpscan.count' + current + name
@@ -502,9 +502,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
    
@@ -531,9 +531,9 @@ os.system(cmd_portscn)
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > portscan.count' + current + name
 os.system(cnt_pcap)
 #count number of line in portscan filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("Port Scan PACKETS FOUND    ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_portscncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 or tcp.flags.reset == 1" | wc -l'
 os.system(cmd_portscncnt)
 cmd_portcnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn == 1 or tcp.flags.reset == 1" | wc -l >> portscan.count' + current + name
@@ -554,9 +554,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
    
@@ -583,9 +583,9 @@ os.system(cmd_xmasscn)
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > xmasscan.count' + current + name
 os.system(cnt_pcap)
 #count number of line in portscan filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("XMAS Scan PACKETS FOUND    ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_xmasscncnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags==0X029" | wc -l'
 os.system(cmd_xmasscncnt)
 cmd_xmascnt = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags==0X029" | wc -l >> xmasscan.count' + current + name
@@ -606,12 +606,12 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
-    print("---------------------------------")
+    print("-----------------------------------------")
    
 
 #main function to open a file
@@ -636,9 +636,9 @@ os.system(cmd_ftp)
 cnt_pcap = 'tshark -r ' + str(file_name) + ' | wc -l > ftp.count' + current + name
 os.system(cnt_pcap)
 #count number of line in ftp filter
-print("---------------------------------")
+print("-----------------------------------------")
 print("FTP Brute Force PACKETS FOUND    ")
-print("---------------------------------")
+print("-----------------------------------------")
 cmd_ftpcnt = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530" | wc -l'
 os.system(cmd_ftpcnt)
 cmd_ftpcnts = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530" | wc -l >> ftp.count' + current + name
@@ -659,9 +659,9 @@ def percent(file):
     math = (int(y) / int(x)) * 100
     rounder = round(math,2)
     percent = "%"
-    print("---------------------------------")
+    print("-----------------------------------------")
     print("Percentage of total packets")
-    print("---------------------------------")
+    print("-----------------------------------------")
 
     print(str(rounder) + str(percent)) 
    
