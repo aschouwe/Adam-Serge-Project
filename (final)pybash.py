@@ -731,6 +731,61 @@ if __name__ == "__main__":
 cmd_rm = 'rm -r syn.count*'
 os.system(cmd_rm)
 
+#UDP flood filter
+cmd_udp= 'tshark -r ' + str(file_name) + ' -Y "ip.proto == 17 && udp.dstport == 80" | sort -n > UDPflood.log' + current + name
+os.system(cmd_udp)
+#count number of packets in the pcap
+cnt_udp = 'tshark -r ' + str(file_name) + ' | wc -l > udp.count' + current + name
+os.system(cnt_udp)
+#count number of line in portscan filter
+print("-----------------------------------------")
+print("UDP Flood PACKETS FOUND ")
+print("-----------------------------------------")
+udp_cnt = 'tshark -r ' + str(file_name) + ' -Y "ip.proto == 17 && udp.dstport == 80" | wc -l'
+os.system(udp_cnt)
+cmd_udpcnt = 'tshark -r ' + str(file_name) + ' -Y "ip.proto == 17 && udp.dstport == 80" | wc -l >> udp.count' + current + name
+os.system(cmd_udpcnt)
+
+def percent(file):
+
+    nums = []
+    for line in file:
+        line = line.rstrip()
+        if line.isnumeric():
+            nums.append(line)
+    
+  
+    x = nums[0]
+    y = nums[1]
+
+    math = (int(y) / int(x)) * 100
+    rounder = round(math,2)
+    percent = "%"
+    print("-----------------------------------------")
+    print("Percentage of total packets")
+    print("-----------------------------------------")
+    
+
+    print(str(rounder) + str(percent)) 
+    
+   
+
+#main function to open a file
+def main():
+    #open the http.count file as file_name
+    file_name = ('/home/kali/finalproject/udp.count' + current + name)
+    with open(file_name) as file_name:
+        #call function
+        percent(file_name)
+
+#dunder check
+if __name__ == "__main__":
+ main()
+
+cmd_rm = 'rm -r udp.count*'
+os.system(cmd_rm)
+
+
 #ftp filter
 cmd_ftp = 'tshark -r ' + str(file_name) + ' -Y "ftp.response.code==530" > FTPscanning.log' + current + name
 os.system(cmd_ftp)
@@ -784,7 +839,7 @@ cmd_rm = 'rm -r ftp.count*'
 os.system(cmd_rm)
 
 #move search filter results to filters directory
-cmd_mv_filters = 'mv HTTP* ARP* ICMP* PORT* SSH* SYN* UDP* XMAS* FTP* TCP* -t ~/finalproject/search_filters' + current + name
+cmd_mv_filters = 'mv HTTP* ARP* ICMP* PORT* SSH* SYN* UDP* XMAS* FTP* TCP* UDP* -t ~/finalproject/search_filters' + current + name + '> /dev/null 2>&1'
 os.system(cmd_mv_filters)
 #remove all empty files from search filter directory 
 rm_empty = 'find . -type f -empty -print -delete > /dev/null'
