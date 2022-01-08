@@ -472,7 +472,7 @@ cmd_rm = 'rm -r tcpstealth.count*'
 os.system(cmd_rm)
 
 #TCP connect scan filter
-cmd_tcpconnect = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn==1 and tcp.flags.ack==0 and tcp.window_size<=1024" > TCPconnect.log' + current + name
+cmd_tcpconnect = 'tshark -r ' + str(file_name) + ' -Y "tcp.flags.syn==1 and tcp.flags.ack==0 and tcp.window_size>1024" > TCPconnect.log' + current + name
 os.system(cmd_tcpconnect)
 #count number of packets in the pcap
 cnt_tcpconnect = 'tshark -r ' + str(file_name) + ' | wc -l > tcpconnect.count' + current + name
